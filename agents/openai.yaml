@@ -1,0 +1,7 @@
+interface:
+  display_name: "微信表情包制作"
+  short_description: "从基准角色到逐帧验收，制作完整微信表情投稿素材包"
+  default_prompt: "请用 $wechat-ai-sticker-pack 制作一套微信表情包，先和我确认制作方式与基准角色。"
+
+policy:
+  allow_implicit_invocation: false
