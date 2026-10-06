@@ -9,7 +9,7 @@ Record at least:
 | Field | Project value |
 |---|---|
 | Pack type | static or animated |
-| Main sticker count | current accepted count |
+| Main sticker count | 24 by default; another count only when explicitly requested |
 | Main format and dimensions | current submission value |
 | Thumbnail format and dimensions | current submission value |
 | Main and thumbnail byte limits | current submission value |
@@ -54,13 +54,12 @@ sticker-pack/
 
 Folder names may follow the current project specification. Use matching stable ids for main stickers and thumbnails.
 
-## Background extraction
+## Native transparent source format
 
-- Prefer genuine alpha or a removable flat background.
-- For color-based extraction, remove only background-connected pixels; do not globally delete a color that may occur inside the character.
-- Use a narrow color tolerance around near-white backgrounds when pale props, eye whites, steam, or light clothing exist.
-- Inspect the alpha result over both light and dark backgrounds before resizing and again after final encoding.
-- Reject unexpected transparent holes, clipped outlines, opaque halos, or changed prop colors.
+- Use native transparent RGBA PNGs for the master, static key poses, and every animation state.
+- Select a generation model that supports native transparent output and request that format in every call.
+- Reject and regenerate opaque backgrounds or painted checkerboards. No background-extraction fallback is part of this workflow.
+- Preserve the native alpha while resizing and encoding; review the result over light and dark backgrounds.
 
 ## Visual review
 
@@ -72,7 +71,7 @@ Folder names may follow the current project specification. Use matching stable i
 - [ ] Hands, overlaps, companions, and props are plausible.
 - [ ] Text does not collide with the face, hands, or props.
 - [ ] Composition remains legible on light and dark chat backgrounds.
-- [ ] Typography and palette reflect the current character rather than a previous example pack.
+- [ ] Typography and palette reflect the current character, with one shared text style across the pack; local text repairs preserve that style.
 
 ## Decoded animation review
 
@@ -109,7 +108,7 @@ Inspect the generated light and dark frame sheets.
 
 ## Deterministic validation
 
-Pass the current project limits explicitly when they differ from the defaults:
+The validator defaults to 24 stickers. Pass another count only when the user explicitly requests it, and pass current project limits when they differ from the defaults:
 
 ```powershell
 python scripts/validate_sticker_pack.py path/to/sticker-pack --mode animated --expected-count <CURRENT_COUNT> --main-size <WIDTHxHEIGHT> --thumb-size <WIDTHxHEIGHT>

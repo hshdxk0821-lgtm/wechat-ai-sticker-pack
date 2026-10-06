@@ -13,6 +13,13 @@
 - 校验数量、尺寸、格式、透明度、循环、帧时长及文件大小
 - 为单张缺陷执行局部返修，避免破坏已经批准的素材
 
+## 制作默认规则
+
+- 默认制作 24 张，分镜、静态关键姿势、动态成品、预览和校验保持同一数量；仅在用户明确要求时更改。
+- 动画默认使用完整 A/B 状态，并在样片阶段提供按动作选择 A/M/B、A/M1/M2/B 等多状态方案。状态数量与每帧时长分别规划，多帧不意味着加快播放。
+- 母版、静态关键姿势和所有动作状态均使用原生透明 RGBA PNG，调用支持原生透明输出的生图模型。不采用纯色背景生成后抠图的流程；不透明底或伪棋盘格结果必须重新生成。
+- 全包文字采用统一字体、字重、填充、描边与位置规则；局部文字返修优先保持整体样式一致。
+
 ## 安装
 
 将整个 `wechat-ai-sticker-pack` 文件夹放入 Codex skills 目录，例如：
@@ -59,7 +66,7 @@ python scripts/render_animation_review.py path/to/sticker-pack
 ```bash
 python scripts/validate_sticker_pack.py path/to/sticker-pack \
   --mode animated \
-  --expected-count 16 \
+  --expected-count 24 \
   --main-size 240x240 \
   --thumb-size 120x120
 ```

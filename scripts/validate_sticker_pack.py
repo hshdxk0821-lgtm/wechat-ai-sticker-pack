@@ -85,7 +85,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("pack", type=Path)
     parser.add_argument("--mode", choices=("animated", "static"), default="animated")
-    parser.add_argument("--expected-count", type=int, help="Expected number of stickers from the current project specification")
+    parser.add_argument("--expected-count", type=int, default=24, help="Expected number of stickers (default: 24; override for an explicitly requested count)")
     parser.add_argument("--only-id", help="Validate one rebuilt item before the required full-pack validation")
     parser.add_argument("--main-size", type=parse_size)
     parser.add_argument("--thumb-size", type=parse_size)
